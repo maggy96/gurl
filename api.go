@@ -10,8 +10,8 @@ import (
 var db *gorm.DB
 
 type Url struct {
- ID uint `json:"id"`
- Payload string `json:"payload"`
+	ID uint `json:"id"`
+	Payload string `json:"payload"`
 }
 
 func main() {
