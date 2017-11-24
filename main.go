@@ -19,16 +19,8 @@ func main() {
 	defer db.Close()
 	db.AutoMigrate(&Url{})
 
-	router := gin.Default()
-	router.Use(gin.Recovery())
-
-	v1 := router.Group("/v1")
-	{
-		v1.GET("/shorten/*url", shorten)
-		v1.GET("/resolve/:id", resolve)
-	}
-
-	router.Run(":8080")
+	r := setupRouter()
+	r.Run(":8080")
 }
 
 func shorten(c *gin.Context)  {
