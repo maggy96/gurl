@@ -14,11 +14,14 @@ type Url struct {
 	Payload string `json:"payload"`
 }
 
-func main() {
+func setupDB()  {
 	db, _ = gorm.Open("sqlite3", "./api.db")
 	defer db.Close()
 	db.AutoMigrate(&Url{})
+}
 
+func main() {
+	setupDB()
 	r := setupRouter()
 	r.Run(":8080")
 }
@@ -34,5 +37,5 @@ func resolve(c *gin.Context)  {
 	id := c.Param("id")
 	var url Url
 	db.Where("id = ?", id).First(&url)
-	c.Redirect(http.StatusMovedPermanently, url.Payload)
+	c.Redirect(http.StatusTemporaryRedirect, url.Payload)
 }
