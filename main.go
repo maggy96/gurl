@@ -14,14 +14,11 @@ type Url struct {
 	Payload string `json:"payload"`
 }
 
-func setupDB()  {
+
+func main() {
 	db, _ = gorm.Open("sqlite3", "./api.db")
 	defer db.Close()
 	db.AutoMigrate(&Url{})
-}
-
-func main() {
-	setupDB()
 	r := setupRouter()
 	r.Run(":8080")
 }
